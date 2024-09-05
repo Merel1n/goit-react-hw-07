@@ -1,16 +1,24 @@
 import css from "./ContactList.module.css";
 import Contact from "../Contact/Contact";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact } from "../../redux/contactsSlice";
+import {
+  selectContacts,
+  // selectFilteredContacts,
+} from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/contactsOps";
 import { useMemo } from "react";
+import { selectNameFilter } from "../../redux/filtersSlice";
 
 const ContactList = () => {
-  const contacts = useSelector((state) => state.contacts.items);
-  const filterValue = useSelector((state) => state.filter.filterValue);
+  const contacts = useSelector(selectContacts);
+  const filterValue = useSelector(selectNameFilter);
+
   const dispatch = useDispatch();
+
   const onDeleteContact = (profileId) => {
     dispatch(deleteContact(profileId));
   };
+  // const filteredContacts = useSelector(selectFilteredContacts);
 
   const filteredContacts = useMemo(
     () =>
