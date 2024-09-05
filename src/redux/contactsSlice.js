@@ -44,12 +44,13 @@ const contactsSlice = createSlice({
 });
 export const contactsReducer = contactsSlice.reducer;
 export const selectContacts = (state) => state.contacts.items;
+export const selectLoading = (state) => state.contacts.loading;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
-  (contacts, name) => {
-    contacts.filter((contact) => {
-      return contact.name.toLowerCase().includes(name.toLowerCase());
+  (contacts, filtredValue) => {
+    return contacts.filter((contact) => {
+      return contact.name.toLowerCase().includes(filtredValue.toLowerCase());
     });
   }
 );
